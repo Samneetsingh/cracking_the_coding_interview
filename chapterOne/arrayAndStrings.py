@@ -187,17 +187,13 @@ def zero(matrix: list) -> list:
 # write code to check if s2 is a rotation of sl using only one call to
 # isSubstring (e.g.,"waterbottle" is a rotation of"erbottlewat").
 
-def is_substring_rotation(string: str) -> bool:
-    pass
+def is_substring(first: str, second: str) -> bool:
+    return True if first in second else False
+
+
+def is_rotation(first: str, second: str) -> bool:
+    return is_substring(first, second + second)
 
 
 if __name__ == '__main__':
-    matrix = [[1]]
-    fourCrossFour = [
-        [1, 2, 3, 4],
-        [5, 0, 7, 8],
-        [9, 10, 11, 0],
-        [13, 14, 15, 16]
-    ]
-
-    print_matrix(zero(fourCrossFour))
+    print(is_rotation("erbottlewat", "waterbottle"))
