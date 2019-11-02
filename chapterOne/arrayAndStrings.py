@@ -166,7 +166,20 @@ def rotate_matrix(matrix: list, offset: int = 0) -> list:
 # its entire row and column are set to 0
 
 def zero(matrix: list) -> list:
-    pass
+    length = len(matrix)
+    zero_mapping = list()
+    for row in range(length):
+        for col in range(length):
+            if matrix[row][col] == 0:
+                print("Marked: ({}, {})".format(row, col))
+                zero_mapping.append((row, col))
+
+    for element in zero_mapping:
+        for i in range(length):
+            matrix[element[0]][i] = 0
+            matrix[i][element[0]] = 0
+
+    return matrix
 
 
 # String Rotation:Assume you have a method isSubstring which checks
@@ -182,18 +195,9 @@ if __name__ == '__main__':
     matrix = [[1]]
     fourCrossFour = [
         [1, 2, 3, 4],
-        [5, 6, 7, 8],
-        [9, 10, 11, 12],
+        [5, 0, 7, 8],
+        [9, 10, 11, 0],
         [13, 14, 15, 16]
     ]
 
-    threeCrossThree = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9]
-    ]
-    twoCrossTwo = [
-        [1, 2],
-        [3, 4]
-    ]
-    print_matrix(rotate_matrix(fourCrossFour))
+    print_matrix(zero(fourCrossFour))
