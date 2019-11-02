@@ -14,36 +14,22 @@ def is_unique(value: str) -> bool:
 # Check Permutation: Given two strings,write a method to decide if one is a permutation of the
 # other.
 
-def permute(letters: list) -> list:
-    if len(letters) == 2:
-        return ["{}{}".format(letters[0], letters[1]), "{}{}".format(letters[1], letters[0])]
-    else:
-        p = list()
-        prefix = letters[:1]
-        suffix = letters[1:]
-        for element in permute(suffix):
-            p.append("{}{}".format(prefix[0], element))
-            p.append("{}{}".format(element, prefix[0]))
-        print(p)
-        return p
-
-
 def permutations(letters: list) -> list:
-    p = list()
-    for i in range(len(letters) + 1):
-        print(letters)
-        p = p + permute(letters)
-        letters = letters[1:] + letters[:1]
-    return list(set(p))
+    if len(letters) == 2:
+        return [(letters[0], letters[1]), (letters[1], letters[0])]
+    else:
+        result = list()
+        prefix = tuple(letters[:1])
+        suffix = letters[1:]
+        for perm in permutations(suffix):
+            for i in range(len(perm) + 1):
+                result.append(perm[:i] + prefix + perm[i:])
+        return result
 
 
-def is_permutation(first: list) -> bool:
-    p = list()
-    for i in range(len(first)):
-        p.append(permutations(first))
-        p = p[1:] + p[:1]
-    print(p)
-    return True
+def is_permutation(first: list, second: list) -> bool:
+    perms = permutations(first)
+    return True if tuple(second) in perms else False
 
 
 # URLify: Write a method to replace all spaces in a string with '%20'.
@@ -66,8 +52,22 @@ def urlify(sentence, length):
 # A permutation is a rearrangement of letters.
 # The palindrome does not need to be limited to just dictionary words.
 
-def is_palindrome(string):
-    pass
+def is_palindrome(values: list) -> bool:
+    for i in range(len(values)):
+        j = len(values) - 1 - i
+        if values[i] != values[j]:
+            return False
+        if i == j:
+            break
+    return True
+
+
+def is_palindrome_permutation(first: list) -> bool:
+    perms = permutations(first)
+    for perm in perms:
+        if is_palindrome(perm):
+            return True
+    return False
 
 
 # One Away: There are three types of edits that can be performed on strings:
@@ -116,8 +116,34 @@ def compress(string: str) -> str:
 # write a method to rotate the image by 90 degrees.
 # Can you do this in place?
 
-def rotate(matrix: list) -> list:
-    pass
+def string_to_list(string: str) -> list:
+    return [string[i] for i in range(len(string))]
+
+
+def print_matrix(matrix: list) -> None:
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            print(matrix[i][j], end="\t")
+        print("\n")
+
+
+def rotate(matrix: list, index: int = 1) -> list:
+    mapping = dict()
+    length = len(matrix) - index
+    for dynamic_index in range(index, length):
+        mapping["({}, {})".format(length - 1 - dynamic_index, index)] = matrix[length - 1 - dynamic_index][index]
+        mapping["({}, {})".format(index, dynamic_index)] = matrix[index][dynamic_index]
+        mapping["({}, {})".format(dynamic_index, length - 1)] = matrix[dynamic_index][length - 1]
+        mapping["({}, {})".format(length - 1, dynamic_index)] = matrix[length - 1][dynamic_index]
+
+    print(mapping)
+    for dynamic_index in range(index, length):
+        matrix[index][dynamic_index] = mapping["({}, {})".format(length - 1 - dynamic_index, index)]
+        matrix[dynamic_index][length - 1] = mapping["({}, {})".format(index, dynamic_index)]
+        matrix[length - 1][length - 1 - dynamic_index] = mapping["({}, {})".format(dynamic_index, length - 1)]
+        matrix[length - 1 - dynamic_index][index] = mapping["({}, {})".format(length - 1, length - 1 - dynamic_index)]
+
+    return matrix
 
 
 # Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0,
@@ -137,5 +163,21 @@ def is_substring_rotation(string: str) -> bool:
 
 
 if __name__ == '__main__':
-    print(compress("aabbcccccdddddAAAAeeef"))
-    print(compress("abcd"))
+    matrix = [[1]]
+    fourCrossFour = [
+        [1, 2, 3, 4],
+        [5, 6, 7, 8],
+        [9, 10, 11, 12],
+        [13, 14, 15, 16]
+    ]
+
+    threeCrossThree = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    twoCrossTwo = [
+        [1, 2],
+        [3, 4]
+    ]
+    print_matrix(rotate(fourCrossFour))
