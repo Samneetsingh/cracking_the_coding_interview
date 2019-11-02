@@ -127,23 +127,39 @@ def print_matrix(matrix: list) -> None:
         print("\n")
 
 
-def rotate(matrix: list, index: int = 1) -> list:
-    mapping = dict()
-    length = len(matrix) - index
-    for dynamic_index in range(index, length):
-        mapping["({}, {})".format(length - 1 - dynamic_index, index)] = matrix[length - 1 - dynamic_index][index]
-        mapping["({}, {})".format(index, dynamic_index)] = matrix[index][dynamic_index]
-        mapping["({}, {})".format(dynamic_index, length - 1)] = matrix[dynamic_index][length - 1]
-        mapping["({}, {})".format(length - 1, dynamic_index)] = matrix[length - 1][dynamic_index]
+def rotate_matrix(matrix: list, offset: int = 0) -> list:
+    length = len(matrix)
+    top = 0 + offset
+    left = 0 + offset
+    bottom = length - offset
+    right = length - offset
 
-    print(mapping)
-    for dynamic_index in range(index, length):
-        matrix[index][dynamic_index] = mapping["({}, {})".format(length - 1 - dynamic_index, index)]
-        matrix[dynamic_index][length - 1] = mapping["({}, {})".format(index, dynamic_index)]
-        matrix[length - 1][length - 1 - dynamic_index] = mapping["({}, {})".format(dynamic_index, length - 1)]
-        matrix[length - 1 - dynamic_index][index] = mapping["({}, {})".format(length - 1, length - 1 - dynamic_index)]
+    if top == bottom and left == right:
+        return matrix
+    else:
 
-    return matrix
+        row_one = list()
+        row_two = list()
+        row_three = list()
+        row_four = list()
+
+        for i in range(left, right):
+            row_one.append(matrix[top][i])
+            row_three.append(matrix[bottom - 1][i])
+
+        for i in range(top, bottom):
+            row_four.append(matrix[i][left])
+            row_two.append(matrix[i][right - 1])
+
+        for i in range(left, right):
+            matrix[top][i] = list(reversed(row_four))[i - offset]
+            matrix[bottom - 1][i] = list(reversed(row_two))[i - offset]
+
+        for i in range(top, bottom):
+            matrix[i][right - 1] = row_one[i - offset]
+            matrix[i][left] = list(reversed(row_three))[i - offset]
+
+        return rotate_matrix(matrix, offset=offset + 1)
 
 
 # Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0,
@@ -180,4 +196,4 @@ if __name__ == '__main__':
         [1, 2],
         [3, 4]
     ]
-    print_matrix(rotate(fourCrossFour))
+    print_matrix(rotate_matrix(fourCrossFour))
