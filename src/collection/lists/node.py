@@ -4,6 +4,9 @@ class Node(object):
         self.__info = info
         self.__next = None
 
+    def __str__(self):
+        return "{}".format(self.__info)
+
     def get_next(self) -> object:
         return self.__next
 
