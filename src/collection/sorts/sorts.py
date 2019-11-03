@@ -15,40 +15,35 @@ def insertion_sort(unsorted_list: list) -> list:
     return unsorted_list
 
 
-import time
-
-
-def merge(first: list, second: list) -> list:
-    index = 0
-    sorted_list = list()
-
-    while first or second:
-        print(first, second)
-        if first[index] < second[index]:
-            sorted_list.append(first.pop(index))
-            sorted_list.append(second.pop(index))
-        else:
-            sorted_list.append(second.pop(index))
-            sorted_list.append(first.pop(index))
-
-    if len(first) < len(second):
-        sorted_list += second
-    else:
-        sorted_list += first
-    time.sleep(2)
-
-    return sorted_list
-
-
 def merge_sort(unsorted_list: list) -> list:
-    if len(unsorted_list) == 1:
+    if len(unsorted_list) <= 1:
         return unsorted_list
     else:
         middle = int(len(unsorted_list) / 2)
-        return merge(merge_sort(unsorted_list[:middle]), merge_sort(unsorted_list[middle:]))
+        left = merge_sort(unsorted_list[:middle])
+        right = merge_sort(unsorted_list[middle:])
+        sorted_list = merge(left, right)
+        return sorted_list
 
 
-if __name__ == '__main__':
-    unsorted = [1, 3, 2, 5, 4]
-    # print(merge_sort(unsorted))
-    print(merge([1, 3], [2, 4, 5]))
+def merge(left: list, right: list) -> list:
+    left_index = 0
+    right_index = 0
+    sorted_list = list()
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            sorted_list.append(left[left_index])
+            left_index += 1
+        else:
+            sorted_list.append(right[right_index])
+            right_index += 1
+
+    while left_index < len(left):
+        sorted_list.append(left[left_index])
+        left_index += 1
+
+    while right_index < len(right):
+        sorted_list.append(right[right_index])
+        right_index += 1
+
+    return sorted_list
