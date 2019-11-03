@@ -32,6 +32,7 @@ class SinglyLinkedList(object):
         while next_node is not None:
             print("{},".format(next_node.get_info()), end="\t")
             next_node = next_node.get_next()
+        print("\n")
 
 
 if __name__ == '__main__':
