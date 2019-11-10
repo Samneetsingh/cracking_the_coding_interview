@@ -43,11 +43,11 @@ class SinglyLinkedList(object):
         :return: None
         """
         next_node = self.head
-        print("|", end="")
+        print("[", end="")
         while next_node.get_next() is not None:
-            print("{}".format(next_node.get_info()), end="|")
+            print("{}".format(next_node.get_info()), end=", ")
             next_node = next_node.get_next()
-        print("{}|".format(next_node.get_info()))
+        print("{}]".format(next_node.get_info()))
 
 
 if __name__ == '__main__':
