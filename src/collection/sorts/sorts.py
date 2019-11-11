@@ -27,8 +27,7 @@ def merge_sort(unsorted_list: list) -> list:
 
 
 def merge(left: list, right: list) -> list:
-    left_index = 0
-    right_index = 0
+    right_index, left_index = 0, 0
     sorted_list = list()
     while left_index < len(left) and right_index < len(right):
         if left[left_index] < right[right_index]:
@@ -37,13 +36,16 @@ def merge(left: list, right: list) -> list:
         else:
             sorted_list.append(right[right_index])
             right_index += 1
+    if left:
+        sorted_list += left[left_index:]
 
-    while left_index < len(left):
-        sorted_list.append(left[left_index])
-        left_index += 1
-
-    while right_index < len(right):
-        sorted_list.append(right[right_index])
-        right_index += 1
+    if right:
+        sorted_list += right[right_index:]
 
     return sorted_list
+
+
+if __name__ == '__main__':
+    # ls = [1, 4, 2, 3]
+    # print(merge_sort(ls))
+    print(merge([1, 4], [2, 3]))
