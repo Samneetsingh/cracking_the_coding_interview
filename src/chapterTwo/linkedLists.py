@@ -1,3 +1,4 @@
+from src.collection.lists.node import Node
 from src.collection.lists.singlyLinkedList import SinglyLinkedList
 
 
@@ -142,6 +143,35 @@ def is_palindrome(linked_list: SinglyLinkedList) -> bool:
         return False
 
 
+# Intersection: Given two (singly) linked lists, determine if the two lists intersect.
+# Return the inter­secting node. Note that the intersection is defined based on reference,
+# not value.That is, if the kth node of the first linked list is the exact same node (by reference)
+# as the jth node of the second linked list, then they are intersecting.
+
+def intersection(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
+    pass
+
+
+# Loop Detection: Given a circular linked list, implement an algorithm that returns
+# the node at the beginning of the loop.
+# DEFINITION
+# Circular linked list: A (corrupt) linked list in which a node's next pointer points
+# to an earlier node, so as to make a loop in the linked list.
+# EXAMPLE
+# Input: A -> B -> C -> D -> E -> C[thesameCasearlier]
+# Output: C
+
+def loop_detection(head: Node) -> bool:
+    visited = list()
+
+    current = head
+    while current is not None:
+        if current in visited:
+            return True
+
+    return False
+
+
 if __name__ == '__main__':
     first = SinglyLinkedList(info="r")
     first.add_link(info="a")
@@ -151,4 +181,4 @@ if __name__ == '__main__':
     first.add_link(info="a")
     first.add_link(info="r")
     first.print_links()
-    print(is_palindrome(first))
+    print(loop_detection(""))
