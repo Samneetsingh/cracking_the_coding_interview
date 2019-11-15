@@ -148,8 +148,18 @@ def is_palindrome(linked_list: SinglyLinkedList) -> bool:
 # not value.That is, if the kth node of the first linked list is the exact same node (by reference)
 # as the jth node of the second linked list, then they are intersecting.
 
-def intersection(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
-    pass
+def intersection(first: SinglyLinkedList, second: SinglyLinkedList) -> bool:
+    first_current = first.head
+
+    while first_current is not None:
+        second_current = second.head
+        while second_current is not None:
+            if second_current == first_current:
+                return True
+            second_current = second_current.get_next()
+        first_current = first_current.get_next()
+
+    return False
 
 
 # Loop Detection: Given a circular linked list, implement an algorithm that returns
