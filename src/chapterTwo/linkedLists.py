@@ -126,17 +126,29 @@ def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
     return list_to_linked_list(result)
 
 
+# Palindrome: Implement a function to check if a linked list is a palindrome.
+
+def is_palindrome(linked_list: SinglyLinkedList) -> bool:
+    buffer = list()
+    current = linked_list.head
+
+    while current is not None:
+        buffer.append(current.get_info())
+        current = current.get_next()
+
+    if buffer == list(reversed(buffer)):
+        return True
+    else:
+        return False
+
+
 if __name__ == '__main__':
-    first = SinglyLinkedList(info=7)
-    first.add_link(info=1)
-    first.add_link(info=6)
-    first.add_link(info=9)
-    first.add_link(info=1)
+    first = SinglyLinkedList(info="r")
+    first.add_link(info="a")
+    first.add_link(info="c")
+    first.add_link(info="e")
+    first.add_link(info="c")
+    first.add_link(info="a")
+    first.add_link(info="r")
     first.print_links()
-    second = SinglyLinkedList(info=5)
-    second.add_link(9)
-    second.add_link(2)
-    second.add_link(9)
-    second.print_links()
-    result = add(first, second)
-    result.print_links()
+    print(is_palindrome(first))
