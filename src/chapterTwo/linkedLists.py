@@ -171,24 +171,40 @@ def intersection(first: SinglyLinkedList, second: SinglyLinkedList) -> bool:
 # Input: A -> B -> C -> D -> E -> C[thesameCasearlier]
 # Output: C
 
+def create_loop(linked_list: SinglyLinkedList) -> None:
+    count = 0
+    loop_node = None
+    current = linked_list.head
+    while current.get_next() is not None:
+        if count == 3:
+            loop_node = current
+
+        count += 1
+        current = current.get_next()
+
+    current.set_next(loop_node)
+
+
 def loop_detection(head: Node) -> bool:
     visited = list()
-
     current = head
     while current is not None:
         if current in visited:
             return True
-
+        else:
+            visited.append(current)
+            current = current.get_next()
     return False
 
 
 if __name__ == '__main__':
-    first = SinglyLinkedList(info="r")
-    first.add_link(info="a")
-    first.add_link(info="c")
-    first.add_link(info="e")
-    first.add_link(info="c")
-    first.add_link(info="a")
-    first.add_link(info="r")
-    first.print_links()
-    print(loop_detection(""))
+    first = SinglyLinkedList(info="1")
+    first.add_link(info="2")
+    first.add_link(info="3")
+    first.add_link(info="4")
+    first.add_link(info="5")
+    first.add_link(info="6")
+    first.add_link(info="7")
+    # create_loop(first)
+    # first.print_links()
+    print(loop_detection(first.head))
