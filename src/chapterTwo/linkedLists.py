@@ -77,13 +77,66 @@ def delete_middle(linked_list: SinglyLinkedList, info: int) -> SinglyLinkedList:
 # Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 
 
+# Sum Lists: You have two numbers represented by a linked list,
+# where each node contains a single digit.The digits are stored in
+# reverse order, such that the 1 's digit is at the head of the list.
+# Write a function that adds the two numbers and returns the sum as a linked list.
+# EXAMPLE
+# Input:(7-> 1 -> 6) + (5 -> 9 -> 2).Thatis,617 + 295. Output:2 -> 1 -> 9.Thatis,912.
+# FOLLOW UP
+# Suppose the digits are stored in forward order. Repeat the above problem. EXAMPLE
+# lnput:(6 -> 1 -> 7) + (2 -> 9 -> 5).That is,617 + 295. Output:9 -> 1 -> 2.Thatis,912.
+def list_to_linked_list(arr: list) -> SinglyLinkedList:
+    if len(arr) <= 0:
+        raise Exception("list is too small!")
+    result = SinglyLinkedList(arr[0])
+    for index in range(1, len(arr)):
+        result.add_link(info=arr[index])
+    return result
+
+
+def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
+    carry = 0
+    first_current = first.head
+    second_current = second.head
+    result = list()
+
+    while first_current is not None and second_current is not None:
+        value = str((carry + first_current.get_info() + second_current.get_info()) / 10).split(".")
+        if len(value) > 1:
+            carry = int(value[0])
+        result.append(int(value[1]))
+
+        first_current = first_current.get_next()
+        second_current = second_current.get_next()
+
+    while first_current is not None:
+        value = str((carry + first_current.get_info()) / 10).split(".")
+        if len(value) > 1:
+            carry = int(value[0])
+        result.append(int(value[1]))
+        first_current = first_current.get_next()
+
+    while second_current is not None:
+        value = str((carry + second_current.get_info()) / 10).split(".")
+        if len(value) > 1:
+            carry = int(value[0])
+        result.append(int(value[1]))
+
+    return list_to_linked_list(result)
+
+
 if __name__ == '__main__':
-    test_linked_list = SinglyLinkedList(info=1)
-    test_linked_list.add_link(info=2)
-    test_linked_list.add_link(info=4)
-    test_linked_list.add_link(info=3)
-    test_linked_list.add_link(info=2)
-    test_linked_list.add_link(info=4)
-    test_linked_list.print_links()
-    delete_middle(test_linked_list, 4).print_links()
-    delete_middle(test_linked_list, 2).print_links()
+    first = SinglyLinkedList(info=7)
+    first.add_link(info=1)
+    first.add_link(info=6)
+    first.add_link(info=9)
+    first.add_link(info=1)
+    first.print_links()
+    second = SinglyLinkedList(info=5)
+    second.add_link(9)
+    second.add_link(2)
+    second.add_link(9)
+    second.print_links()
+    result = add(first, second)
+    result.print_links()
