@@ -95,6 +95,46 @@ def list_to_linked_list(arr: list) -> SinglyLinkedList:
         result.add_link(info=arr[index])
     return result
 
+# def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
+#     carry = 0
+#     first_current = first.head
+#     second_current = second.head
+#     result = None
+#
+#     while first_current is not None and second_current is not None:
+#         value = str((carry + first_current.get_info() + second_current.get_info()) / 10).split(".")
+#         if len(value) > 1:
+#             carry = int(value[0])
+#
+#         info = int(value[1])
+#         if result:
+#             result.add_link(info=info)
+#         else:
+#             result = SinglyLinkedList(info=info)
+#
+#         first_current = first_current.get_next()
+#         second_current = second_current.get_next()
+#
+#     while first_current is not None:
+#         value = str((carry + first_current.get_info()) / 10).split(".")
+#         if len(value) > 1:
+#             carry = int(value[0])
+#         info = int(value[1])
+#         if result:
+#             result.add_link(info=info)
+#         first_current = first_current.get_next()
+#
+#     while second_current is not None:
+#         value = str((carry + second_current.get_info()) / 10).split(".")
+#         if len(value) > 1:
+#             carry = int(value[0])
+#         info = int(value[1])
+#         if result:
+#             result.add_link(info=info)
+#         second_current = second_current.get_next()
+#
+#     return result
+
 
 def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
     carry = 0
@@ -123,6 +163,9 @@ def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
         if len(value) > 1:
             carry = int(value[0])
         result.append(int(value[1]))
+
+    if carry > 0:
+        result.append(carry)
 
     return list_to_linked_list(result)
 
@@ -198,13 +241,11 @@ def loop_detection(head: Node) -> bool:
 
 
 if __name__ == '__main__':
-    first = SinglyLinkedList(info="1")
-    first.add_link(info="2")
-    first.add_link(info="3")
-    first.add_link(info="4")
-    first.add_link(info="5")
-    first.add_link(info="6")
-    first.add_link(info="7")
-    # create_loop(first)
-    # first.print_links()
-    print(loop_detection(first.head))
+    first = SinglyLinkedList(info=9)
+    first.add_link(info=9)
+    first.add_link(info=9)
+
+    second = SinglyLinkedList(0)
+    second.add_link(info=1)
+    second.add_link(info=0)
+    add(first, second).print_links()
