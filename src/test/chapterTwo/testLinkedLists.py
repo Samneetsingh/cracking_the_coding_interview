@@ -89,9 +89,15 @@ class TestLinkedLists(unittest.TestCase):
         pass
 
     def test_loop_detection(self):
-        unlooped_linked_list = self.test_linked_list
-        self.assertFalse(unlooped_linked_list)
-        looped_linked_list = self.create_loop(unlooped_linked_list)
+        linked_list = SinglyLinkedList()
+        linked_list.add_link("a")
+        linked_list.add_link("b")
+        linked_list.add_link("c")
+        linked_list.add_link("d")
+        linked_list.add_link("e")
+        self.assertFalse(loop_detection(linked_list.head))
+        
+        looped_linked_list = self.create_loop(linked_list)
         self.assertTrue(loop_detection(looped_linked_list.head))
 
 
