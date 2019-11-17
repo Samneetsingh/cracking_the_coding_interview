@@ -29,7 +29,7 @@ class Stack(object):
         """
         Function to get reverse of a linked list
         :param head: Node
-        :return: S
+        :return: SinglyLinkedList
         """
         if head.get_next() is None:
             linked_list = SinglyLinkedList()
