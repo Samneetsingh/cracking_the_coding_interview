@@ -96,7 +96,7 @@ class TestLinkedLists(unittest.TestCase):
         linked_list.add_link("d")
         linked_list.add_link("e")
         self.assertFalse(loop_detection(linked_list.head))
-        
+
         looped_linked_list = self.create_loop(linked_list)
         self.assertTrue(loop_detection(looped_linked_list.head))
 
