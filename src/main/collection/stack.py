@@ -1,4 +1,4 @@
-from src.main.collection.lists import SinglyLinkedList
+from src.main.collection.linkedLists import SinglyLinkedList
 
 
 class Stack(object):
