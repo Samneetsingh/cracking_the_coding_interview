@@ -7,7 +7,7 @@ class Node(object):
     def __str__(self):
         return "{}".format(self.__info)
 
-    def get_next(self) -> object:
+    def get_next(self):
         """
         Function to get next node
         :return: Node

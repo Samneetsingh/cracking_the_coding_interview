@@ -1,5 +1,5 @@
-from src.collection.lists.node import Node
-from src.collection.lists.singlyLinkedList import SinglyLinkedList
+from src.main.collection.linkedLists import SinglyLinkedList
+from src.main.collection.node import Node
 
 
 # Remove Dups! Write code to remove duplicates from an unsorted linked list.
@@ -9,9 +9,8 @@ from src.collection.lists.singlyLinkedList import SinglyLinkedList
 def deduplicate(linked_list: SinglyLinkedList) -> SinglyLinkedList:
     unique = set()
     current = linked_list.head
-    unique.add(current.get_info())
-    new_linked_list = SinglyLinkedList(current.get_info())
-    while current.get_next() is not None:
+    new_linked_list = SinglyLinkedList()
+    while current is not None:
         info = current.get_info()
         if info not in unique:
             unique.add(info)
@@ -22,7 +21,7 @@ def deduplicate(linked_list: SinglyLinkedList) -> SinglyLinkedList:
 
 def deduplicate_without_buffer(linked_list: SinglyLinkedList) -> SinglyLinkedList:
     outer_current = linked_list.head
-    while outer_current.get_next() is not None:
+    while outer_current is not None:
         inner_prev = None
         inner_current = outer_current.get_next()
         while inner_current is not None:
@@ -57,6 +56,7 @@ def kth(index, linked_list: SinglyLinkedList) -> int:
 # Result: nothing is returned, but the new linked list looks likea->b->d->e- >f
 
 def delete_middle(linked_list: SinglyLinkedList, info: int) -> SinglyLinkedList:
+    # TODO: Still need to implement if properly
     prev = linked_list.head
     current = linked_list.head.get_next()
     while current.get_next() is not None:
@@ -87,66 +87,19 @@ def delete_middle(linked_list: SinglyLinkedList, info: int) -> SinglyLinkedList:
 # FOLLOW UP
 # Suppose the digits are stored in forward order. Repeat the above problem. EXAMPLE
 # lnput:(6 -> 1 -> 7) + (2 -> 9 -> 5).That is,617 + 295. Output:9 -> 1 -> 2.Thatis,912.
-def list_to_linked_list(arr: list) -> SinglyLinkedList:
-    if len(arr) <= 0:
-        raise Exception("list is too small!")
-    result = SinglyLinkedList(arr[0])
-    for index in range(1, len(arr)):
-        result.add_link(info=arr[index])
-    return result
-
-# def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
-#     carry = 0
-#     first_current = first.head
-#     second_current = second.head
-#     result = None
-#
-#     while first_current is not None and second_current is not None:
-#         value = str((carry + first_current.get_info() + second_current.get_info()) / 10).split(".")
-#         if len(value) > 1:
-#             carry = int(value[0])
-#
-#         info = int(value[1])
-#         if result:
-#             result.add_link(info=info)
-#         else:
-#             result = SinglyLinkedList(info=info)
-#
-#         first_current = first_current.get_next()
-#         second_current = second_current.get_next()
-#
-#     while first_current is not None:
-#         value = str((carry + first_current.get_info()) / 10).split(".")
-#         if len(value) > 1:
-#             carry = int(value[0])
-#         info = int(value[1])
-#         if result:
-#             result.add_link(info=info)
-#         first_current = first_current.get_next()
-#
-#     while second_current is not None:
-#         value = str((carry + second_current.get_info()) / 10).split(".")
-#         if len(value) > 1:
-#             carry = int(value[0])
-#         info = int(value[1])
-#         if result:
-#             result.add_link(info=info)
-#         second_current = second_current.get_next()
-#
-#     return result
 
 
-def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
+def add_numbers(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
     carry = 0
     first_current = first.head
     second_current = second.head
-    result = list()
+    result = SinglyLinkedList()
 
     while first_current is not None and second_current is not None:
         value = str((carry + first_current.get_info() + second_current.get_info()) / 10).split(".")
         if len(value) > 1:
             carry = int(value[0])
-        result.append(int(value[1]))
+        result.add_link(int(value[1]))
 
         first_current = first_current.get_next()
         second_current = second_current.get_next()
@@ -155,32 +108,37 @@ def add(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLinkedList:
         value = str((carry + first_current.get_info()) / 10).split(".")
         if len(value) > 1:
             carry = int(value[0])
-        result.append(int(value[1]))
+        result.add_link(int(value[1]))
         first_current = first_current.get_next()
 
     while second_current is not None:
         value = str((carry + second_current.get_info()) / 10).split(".")
         if len(value) > 1:
             carry = int(value[0])
-        result.append(int(value[1]))
+        result.add_link(int(value[1]))
 
     if carry > 0:
-        result.append(carry)
+        result.add_link(carry)
 
-    return list_to_linked_list(result)
+    return result
 
 
 # Palindrome: Implement a function to check if a linked list is a palindrome.
+def reverse_linked_list(head: Node) -> SinglyLinkedList:
+    if head.get_next() is None:
+        linked_list = SinglyLinkedList()
+        linked_list.add_link(head.get_info())
+        return linked_list
+    else:
+        linked_list = reverse_linked_list(head.get_next())
+        linked_list.add_link(head.get_info())
+        return linked_list
+
 
 def is_palindrome(linked_list: SinglyLinkedList) -> bool:
-    buffer = list()
-    current = linked_list.head
+    reversed_linked_list = reverse_linked_list(linked_list.head)
 
-    while current is not None:
-        buffer.append(current.get_info())
-        current = current.get_next()
-
-    if buffer == list(reversed(buffer)):
+    if linked_list == reversed_linked_list:
         return True
     else:
         return False
@@ -214,20 +172,6 @@ def intersection(first: SinglyLinkedList, second: SinglyLinkedList) -> bool:
 # Input: A -> B -> C -> D -> E -> C[thesameCasearlier]
 # Output: C
 
-def create_loop(linked_list: SinglyLinkedList) -> None:
-    count = 0
-    loop_node = None
-    current = linked_list.head
-    while current.get_next() is not None:
-        if count == 3:
-            loop_node = current
-
-        count += 1
-        current = current.get_next()
-
-    current.set_next(loop_node)
-
-
 def loop_detection(head: Node) -> bool:
     visited = list()
     current = head
@@ -241,11 +185,13 @@ def loop_detection(head: Node) -> bool:
 
 
 if __name__ == '__main__':
-    first = SinglyLinkedList(info=9)
-    first.add_link(info=9)
-    first.add_link(info=9)
+    first = SinglyLinkedList()
+    first.add_link(info=1)
+    first.add_link(info=2)
+    first.add_link(info=2)
+    first.add_link(info=1)
+    print(first)
 
-    second = SinglyLinkedList(0)
-    second.add_link(info=1)
-    second.add_link(info=0)
-    add(first, second).print_links()
+    # reversed_first = reverse_linked_list(first.head)
+    # print(reversed_first)
+    print(is_palindrome(first))
