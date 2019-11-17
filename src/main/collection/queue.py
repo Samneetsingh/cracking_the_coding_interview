@@ -69,5 +69,4 @@ if __name__ == '__main__':
     queue.remove()
     queue.remove()
     queue.remove()
-
     print(queue)
