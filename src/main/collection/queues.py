@@ -59,4 +59,4 @@ class Queue(object):
             return self.storage.head.get_info()
 
     def is_empty(self):
-        return True if self.storage.head is None else False
+        return self.storage.head is None

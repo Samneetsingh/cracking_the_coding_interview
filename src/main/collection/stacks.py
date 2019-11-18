@@ -85,4 +85,4 @@ class Stack(object):
         Function to check if stack is empty or not
         :return:
         """
-        return True if self.storage.head is None else False
+        return self.storage.head is None
