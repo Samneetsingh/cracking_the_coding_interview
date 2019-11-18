@@ -53,20 +53,10 @@ class Queue(object):
             return current
 
     def peek(self):
-        return self.storage.head
+        if self.is_empty():
+            return None
+        else:
+            return self.storage.head.get_info()
 
     def is_empty(self):
         return True if self.storage.head is None else False
-
-
-if __name__ == '__main__':
-    queue = Queue()
-    queue.add(1)
-    queue.add(2)
-    queue.add(3)
-    queue.add(4)
-    queue.remove()
-    queue.remove()
-    queue.remove()
-    queue.remove()
-    print(queue)

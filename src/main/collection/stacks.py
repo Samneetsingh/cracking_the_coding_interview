@@ -1,6 +1,7 @@
+from typing import Optional, Any
+
 from src.main.collection.linkedLists import SinglyLinkedList
 from src.main.collection.node import Node
-from typing import Optional, Any
 
 
 class Stack(object):
@@ -85,19 +86,3 @@ class Stack(object):
         :return:
         """
         return True if self.storage.head is None else False
-
-
-if __name__ == '__main__':
-    stk = Stack()
-    stk.push(info=1)
-    stk.push(info=2)
-    stk.push(info=3)
-    # print(stk.peek())
-    print(stk)
-    stk.pop()
-    print(stk)
-    stk.pop()
-    print(stk.peek())
-    print(stk)
-    stk.pop()
-    print(stk.peek())
