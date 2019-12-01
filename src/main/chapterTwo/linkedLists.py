@@ -1,5 +1,5 @@
 from src.main.collection.linkedLists import SinglyLinkedList
-from src.main.collection.node import Node
+from src.main.collection.nodes import SingleChildNode
 
 
 # Remove Dups! Write code to remove duplicates from an unsorted linked list.
@@ -124,7 +124,7 @@ def add_numbers(first: SinglyLinkedList, second: SinglyLinkedList) -> SinglyLink
 
 
 # Palindrome: Implement a function to check if a linked list is a palindrome.
-def reverse_linked_list(head: Node) -> SinglyLinkedList:
+def reverse_linked_list(head: SingleChildNode) -> SinglyLinkedList:
     if head.get_next() is None:
         linked_list = SinglyLinkedList()
         linked_list.add_link(head.get_info())
@@ -172,7 +172,7 @@ def intersection(first: SinglyLinkedList, second: SinglyLinkedList) -> bool:
 # Input: A -> B -> C -> D -> E -> C[thesameCasearlier]
 # Output: C
 
-def loop_detection(head: Node) -> bool:
+def loop_detection(head: SingleChildNode) -> bool:
     visited = list()
     current = head
     while current is not None:

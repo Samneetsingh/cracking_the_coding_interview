@@ -1,7 +1,7 @@
 from typing import Any
 
 from src.main.collection.linkedLists import SinglyLinkedList
-from src.main.collection.node import Node
+from src.main.collection.nodes import SingleChildNode
 
 
 class Queue(object):
@@ -26,7 +26,7 @@ class Queue(object):
             representation += "{}".format(current.get_info())
             return representation
 
-    def __reverse(self, head: Node) -> SinglyLinkedList:
+    def __reverse(self, head: SingleChildNode) -> SinglyLinkedList:
         """
         Function to get reverse of a linked list
         :param head: Node

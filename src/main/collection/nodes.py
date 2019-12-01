@@ -1,4 +1,18 @@
-class Node(object):
+import abc
+
+
+class Node(abc.ABC):
+
+    @abc.abstractmethod
+    def get_next(self):
+        pass
+
+    @abc.abstractmethod
+    def get_info(self):
+        pass
+
+
+class SingleChildNode(Node):
 
     def __init__(self, info: int) -> None:
         self.__info = info

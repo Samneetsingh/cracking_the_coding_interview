@@ -1,5 +1,6 @@
 # Three in One: Describe how you could use a single array to implement three stacks.
 
+
 def three_in_one():
     pass
 
@@ -12,46 +13,27 @@ def three_in_one():
 class MinStack(object):
 
     def __init__(self):
-        self.min_stack = list()
-        self.length = 0
+        self.storage = list()
+        self.minimum = None
+        self.top = -1
+
+    def __str__(self):
+        representation = ""
+        for i in range(len(self.storage)):
+            representation += "|{}|\n".format(self.storage[-i])
+        return representation
 
     def pop(self):
-        info = self.min_stack[:self.length][0]
-        self.min_stack = self.min_stack[self.length:]
-        self.length -= 1
-        return info
-
-    # def push(self, info):
-    #     if self.length == 0:
-    #         self.min_stack.append(info)
-    #     if self.length > 0:
-    #         top = self.pop()
-    #         print(top < info)
-    #         if top > info:
-    #             self.min_stack.append(info)
-    #             self.min_stack.append(top)
-    #         else:
-    #             self.min_stack.append(top)
-    #             self.min_stack.append(info)
-    #     self.length += 1
+        if self.top >= 0:
+            self.top -= 1
+            self.storage = self.storage[self.top:]
 
     def push(self, info):
-        if self.length <= 0:
-            self.min_stack.insert(self.length, info)
-        else:
-            top = self.pop()
-            print(top)
-            if top > info:
-                self.min_stack.append(info)
-                self.min_stack.append(top)
-            else:
-                self.min_stack.append(top)
-                self.min_stack.append(info)
-        print(self.min_stack)
-        self.length += 1
+        self.storage.insert(self.top, info)
+        self.top += 1
 
     def min(self):
-        return self.min_stack[self.length - 1]
+        return self.minimum
 
 
 if __name__ == '__main__':
@@ -60,7 +42,9 @@ if __name__ == '__main__':
     stk.push(1)
     stk.push(5)
     stk.push(3)
+    print(stk)
     print(stk.pop())
     # stk.push(2)
     # print(stk.min())
+    print(stk)
     print(stk.min())

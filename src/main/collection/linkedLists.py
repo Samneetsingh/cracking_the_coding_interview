@@ -1,4 +1,4 @@
-from src.main.collection.node import Node
+from src.main.collection.nodes import SingleChildNode
 
 
 class SinglyLinkedList(object):
@@ -38,7 +38,7 @@ class SinglyLinkedList(object):
         :param info: data
         :return: None
         """
-        new_node = Node(info)
+        new_node = SingleChildNode(info)
         if self.head is None:
             self.head = new_node
         else:
