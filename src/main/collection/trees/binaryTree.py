@@ -8,7 +8,6 @@ class BinaryTree(BaseTree):
 
     def __init__(self, info: Any) -> None:
         self.__root = BinaryLeaf(info=info)
-
         self.__functions = {
             'pre_order': self.__pre_order,
             'in_order': self.__in_order,
