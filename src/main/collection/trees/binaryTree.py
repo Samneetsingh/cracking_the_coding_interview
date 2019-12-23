@@ -1,9 +1,10 @@
 from typing import Any, Callable
 
+from src.main.collection.trees.baseTree import BaseTree
 from src.main.collection.trees.binaryLeaf import BinaryLeaf
 
 
-class BinaryTree(object):
+class BinaryTree(BaseTree):
 
     def __init__(self, info: Any) -> None:
         self.__root = BinaryLeaf(info=info)
@@ -75,6 +76,13 @@ class BinaryTree(object):
         self.__functions[name](root=self.__root, func=print)
 
     def to_list(self, name='in_order') -> list:
+        """
+        Function to convert tree to list
+        """
         elements = list()
         self.__functions[name](root=self.__root, func=elements.append)
         return elements
+
+
+if __name__ == '__main__':
+    tree = BinaryTree(info=10)
