@@ -20,7 +20,7 @@ class BinaryTree(BaseTree):
         """
         if root is not None:
             self.__in_order(root=root.get_left(), func=func)
-            func(root.get_info())
+            func(root)
             self.__in_order(root=root.get_right(), func=func)
 
     def __pre_order(self, root, func: Callable) -> None:
@@ -28,7 +28,7 @@ class BinaryTree(BaseTree):
         Function for pre-order traversal
         """
         if root is not None:
-            func(root.get_info())
+            func(root)
             self.__in_order(root=root.get_left(), func=func)
             self.__in_order(root=root.get_right(), func=func)
 
@@ -39,7 +39,7 @@ class BinaryTree(BaseTree):
         if root is not None:
             self.__in_order(root=root.get_left(), func=func)
             self.__in_order(root=root.get_right(), func=func)
-            func(root.get_info())
+            func(root)
 
     def __insert_helper(self, root: BinaryLeaf, info: Any) -> None:
         """
@@ -72,16 +72,17 @@ class BinaryTree(BaseTree):
         """
         Function to traverse tree
         """
-        self.__functions[name](root=self.__root, func=print)
+        self.__functions[name](root=self.__root, func=lambda leaf: print(leaf.get_info()))
 
     def to_list(self, name='in_order') -> list:
         """
         Function to convert tree to list
         """
         elements = list()
-        self.__functions[name](root=self.__root, func=elements.append)
+        self.__functions[name](root=self.__root, func=lambda leaf: elements.append(leaf.get_info()))
         return elements
 
 
 if __name__ == '__main__':
     tree = BinaryTree(info=10)
+    tree.traverse()
