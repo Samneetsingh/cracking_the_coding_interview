@@ -13,7 +13,11 @@ class TestBinaryTrees(unittest.TestCase):
         # self.tree.traverse()
 
     def test_insert(self):
-        pass
+        elements = self.tree.to_list(name='pre_order')
+        self.assertIn(2, elements)
+        self.assertIn(10, elements)
+        self.assertIn(12, elements)
+        self.assertIn(15, elements)
 
     def test_remove(self):
         pass
