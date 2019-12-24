@@ -90,4 +90,5 @@ if __name__ == '__main__':
     tree = BinaryTree(info=10)
     tree.insert(info=5)
     tree.insert(info=15)
+    tree.insert(info=20)
     tree.traverse()
