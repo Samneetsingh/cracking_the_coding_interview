@@ -14,32 +14,35 @@ class BinaryTree(BaseTree):
             'post_order': self.__post_order
         }
 
-    def __in_order(self, root: BinaryLeaf, func: Callable) -> None:
+    def __in_order(self, func: Callable[[BinaryLeaf, int], None], root: BinaryLeaf, level: int = 0) -> None:
         """
         Function for in-order traversal
         """
         if root is not None:
-            self.__in_order(root=root.get_left(), func=func)
-            func(root)
-            self.__in_order(root=root.get_right(), func=func)
+            new_level = level + 1
+            self.__in_order(func=func, root=root.get_left(), level=new_level)
+            func(root, level)
+            self.__in_order(func=func, root=root.get_right(), level=new_level)
 
-    def __pre_order(self, root, func: Callable) -> None:
+    def __pre_order(self, func: Callable[[BinaryLeaf, int], None], root: BinaryLeaf, level: int = 0) -> None:
         """
         Function for pre-order traversal
         """
         if root is not None:
-            func(root)
-            self.__in_order(root=root.get_left(), func=func)
-            self.__in_order(root=root.get_right(), func=func)
+            new_level = level + 1
+            func(root, level)
+            self.__pre_order(func=func, root=root.get_left(), level=new_level)
+            self.__pre_order(func=func, root=root.get_right(), level=new_level)
 
-    def __post_order(self, root, func: Callable) -> None:
+    def __post_order(self, func: Callable[[BinaryLeaf, int], None], root: BinaryLeaf, level: int = 0) -> None:
         """
         Function for post-order traversal
         """
         if root is not None:
-            self.__in_order(root=root.get_left(), func=func)
-            self.__in_order(root=root.get_right(), func=func)
-            func(root)
+            new_level = level + 1
+            self.__post_order(func=func, root=root.get_left(), level=new_level)
+            self.__post_order(func=func, root=root.get_right(), level=new_level)
+            func(root, level)
 
     def __insert_helper(self, root: BinaryLeaf, info: Any) -> None:
         """
@@ -72,17 +75,19 @@ class BinaryTree(BaseTree):
         """
         Function to traverse tree
         """
-        self.__functions[name](root=self.__root, func=lambda leaf: print(leaf.get_info()))
+        self.__functions[name](func=lambda leaf, level: print(leaf.get_info()), root=self.__root)
 
     def to_list(self, name='in_order') -> list:
         """
         Function to convert tree to list
         """
         elements = list()
-        self.__functions[name](root=self.__root, func=lambda leaf: elements.append(leaf.get_info()))
+        self.__functions[name](func=lambda leaf, level: elements.append(leaf.get_info()), root=self.__root)
         return elements
 
 
 if __name__ == '__main__':
     tree = BinaryTree(info=10)
+    tree.insert(info=5)
+    tree.insert(info=15)
     tree.traverse()

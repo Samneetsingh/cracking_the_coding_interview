@@ -1,7 +1,7 @@
 from typing import Any
 from typing import TypeVar
 
-BL = TypeVar('BL', bound='BinaryLeaf')
+BinaryLeafType = TypeVar('BinaryLeafType', bound='BinaryLeaf')
 
 
 class BinaryLeaf(object):
@@ -17,25 +17,25 @@ class BinaryLeaf(object):
         """
         return self.__info
 
-    def get_left(self) -> BL:
+    def get_left(self) -> BinaryLeafType:
         """
         Function to get left child node
         """
         return self.__left
 
-    def set_left(self, leaf: BL) -> None:
+    def set_left(self, leaf: BinaryLeafType) -> None:
         """
         Function to set left child node
         """
         self.__left = leaf
 
-    def get_right(self) -> BL:
+    def get_right(self) -> BinaryLeafType:
         """
         Function to get right child node
         """
         return self.__right
 
-    def set_right(self, leaf: BL) -> None:
+    def set_right(self, leaf: BinaryLeafType) -> None:
         """
         Function to set right child node
         """
