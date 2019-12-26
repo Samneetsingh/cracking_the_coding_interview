@@ -14,9 +14,20 @@ class BinaryTree(BaseTree):
             'post_order': self.__post_order
         }
 
+    def get_root(self) -> BinaryLeaf:
+        """
+        Function to return root leaf
+        :return: root leaf
+        """
+        return self.__root
+
     def __in_order(self, func: Callable[[BinaryLeaf, int], None], root: BinaryLeaf, level: int = 0) -> None:
         """
-        Function for in-order traversal
+        Function to traverse tree in in-order fashion
+        :param func: function to execute on the node
+        :param root: root node
+        :param level: base level of the tree
+        :return: None
         """
         if root is not None:
             new_level = level + 1
@@ -26,7 +37,11 @@ class BinaryTree(BaseTree):
 
     def __pre_order(self, func: Callable[[BinaryLeaf, int], None], root: BinaryLeaf, level: int = 0) -> None:
         """
-        Function for pre-order traversal
+        Function to traverse tree in pre-order fashion
+        :param func: function to execute on the node
+        :param root: root node
+        :param level: base level of the tree
+        :return: None
         """
         if root is not None:
             new_level = level + 1
@@ -36,7 +51,11 @@ class BinaryTree(BaseTree):
 
     def __post_order(self, func: Callable[[BinaryLeaf, int], None], root: BinaryLeaf, level: int = 0) -> None:
         """
-        Function for post-order traversal
+        Function to traverse tree in post-order fashion
+        :param func: function to execute on the node
+        :param root: root node
+        :param level: base level of the tree
+        :return: None
         """
         if root is not None:
             new_level = level + 1
@@ -46,7 +65,10 @@ class BinaryTree(BaseTree):
 
     def __insert_helper(self, root: BinaryLeaf, info: Any) -> None:
         """
-        Function to recursively insert new node
+        Function to recursively insert node
+        :param root: root node
+        :param info: value to be added to the tree
+        :return: None
         """
         if info <= root.get_info():
             if root.get_left() is None:
@@ -61,25 +83,33 @@ class BinaryTree(BaseTree):
 
     def insert(self, info: Any) -> None:
         """
-        Function to insert new node
+        Function to add new node
+        :param info: value to add to the tree
+        :return: None
         """
         self.__insert_helper(root=self.__root, info=info)
 
     def remove(self, info: Any) -> None:
         """
-        Function to remove new node
+        Function to remove information from the tree
+        :param info: value to be removed from the tree
+        :return: None
         """
         pass
 
     def traverse(self, name='in_order') -> None:
         """
-        Function to traverse tree
+        Function to traverse the tree
+        :param name: name of the order to traverse the tree
+        :return: None
         """
         self.__functions[name](func=lambda leaf, level: print(leaf.get_info()), root=self.__root)
 
     def to_list(self, name='in_order') -> list:
         """
-        Function to convert tree to list
+        Function to convert tree to a list
+        :param name: name of the order to traverse the tree
+        :return: None
         """
         elements = list()
         self.__functions[name](func=lambda leaf, level: elements.append(leaf.get_info()), root=self.__root)

@@ -13,30 +13,37 @@ class BinaryLeaf(object):
 
     def get_info(self) -> Any:
         """
-        Function to get information
+        Function to get stored information
+        :return: information
         """
         return self.__info
 
     def get_left(self) -> BinaryLeafType:
         """
-        Function to get left child node
+        Function to get left child
+        :return: left child node
         """
         return self.__left
 
     def set_left(self, leaf: BinaryLeafType) -> None:
         """
-        Function to set left child node
+        Function to set left child
+        :param leaf: new leaf node
+        :return: None
         """
         self.__left = leaf
 
     def get_right(self) -> BinaryLeafType:
         """
-        Function to get right child node
+        Function to get right child
+        :return: right child node
         """
         return self.__right
 
     def set_right(self, leaf: BinaryLeafType) -> None:
         """
-        Function to set right child node
+        Function to set right child
+        :param leaf: new leaf node
+        :return: None
         """
         self.__right = leaf
